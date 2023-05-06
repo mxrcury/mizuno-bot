@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { BotModule } from './bot.module';
+import { BotModule } from './modules/bot/bot.module';
 
 async function main() {
-  await NestFactory.createApplicationContext(BotModule)
+  await NestFactory.createApplicationContext(BotModule);
 }
 
 main();
