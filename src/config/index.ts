@@ -16,9 +16,9 @@ type EnvSchema = z.infer<typeof envSchema>
 const parsedEnv = envSchema.safeParse( expand({ parsed }).parsed )
 
 if(parsedEnv.success === false) {
-    logger.error('Something went wrong during parsing envs')
+    logger.error('Something went wrong during parsing environments')
     process.exit(1)
 }
 
 
-export const env = parsedEnv.data
+export const env = parsedEnv.data as EnvSchema

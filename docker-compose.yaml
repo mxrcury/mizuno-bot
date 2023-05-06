@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  bot:
+    container_name: bot
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+      - 9229:9229
+    restart: always
+    command: yarn start:dev
