@@ -16,10 +16,13 @@ export class BotUpdate {
   @On('message')
   async message(@Ctx() ctx: IBotContext, @Message() msg: IMessage) {
     const file = await this.botService.handleLink(msg.text);
+    // console.log(file);
+
     await ctx.reply('😄:');
     await ctx.replyWithAudio({
       url: file.url,
       filename: file.filename,
+      // source:''
     });
   }
 }
