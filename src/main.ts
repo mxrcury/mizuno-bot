@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { BotModule } from './bot.module';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+async function main() {
+  await NestFactory.createApplicationContext(BotModule)
 }
-bootstrap();
+
+main();
