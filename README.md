@@ -2,7 +2,7 @@
   <a href="http://github.com/mxrcury" target="blank"><img src="https://vignette.wikia.nocookie.net/horadeaventura/images/9/9e/Asuna-05.png/revision/latest?cb=20130805092600&path-prefix=es" width="200" alt="Asuna" /></a>
 </p>
 
-  <p align="center"><h4>Mizuno telegram bot</h4></p>
+  <h4 align="center">Mizuno telegram bot 📌</h4>
     <p align="center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
