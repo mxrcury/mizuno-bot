@@ -3,7 +3,6 @@ import { Context } from 'telegraf';
 export interface ISession {
   value: string;
 }
-
 export interface IBotContext extends Context {
   session: ISession;
 }
@@ -32,4 +31,9 @@ export interface IChat {
   first_name: string;
   username: string;
   type: string;
+}
+
+export interface IExtractAudioArgs {
+  videoPath: string;
+  audioPath: string;
 }
