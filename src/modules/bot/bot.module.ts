@@ -4,7 +4,6 @@ import { Module } from '@nestjs/common';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { botOptions } from 'src/config/bot.config';
 import { FilesModule } from '../files/files.module';
-import { VideosModule } from '../videos/videos.module';
 import { YoutubeModule } from '../youtube/youtube.module';
 import { BotService } from './bot.service';
 import { BotUpdate } from './bot.update';
@@ -16,7 +15,6 @@ import { BotUpdate } from './bot.update';
     HttpModule,
     FilesModule,
     // FirebaseModule.forRoot(firebaseOptions),
-    VideosModule,
   ],
   providers: [BotUpdate, BotService],
 })

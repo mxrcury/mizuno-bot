@@ -3,8 +3,9 @@ import { Context } from 'telegraf';
 export interface ISession {
   value: string;
 }
-export interface IBotContext extends Context {
+export interface IBotContext extends Omit<Context, 'update'> {
   session: ISession;
+  update: { message: { text: string } };
 }
 
 export interface IBotOptions {

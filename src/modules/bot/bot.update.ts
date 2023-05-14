@@ -1,5 +1,7 @@
 import { Command, Ctx, Start, Update } from 'nestjs-telegraf';
+
 import { resolve } from 'path';
+
 import { IBotContext } from '../../interfaces/bot.interface';
 import { BotService } from './bot.service';
 
@@ -17,35 +19,22 @@ export class BotUpdate {
   @Command('extractAudio')
   async extractAudio(@Ctx() ctx: IBotContext) {
     const parsedArgs = this.botService.parseCommandArgs(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       ctx.update.message.text,
     );
-    console.log(resolve('assets', 'audio-dub.mp4'));
 
     await this.botService.extractAudioFromVideo(
       resolve(...parsedArgs.video.split('/')),
       resolve(...parsedArgs.audio.split('/')),
     );
-    await ctx.reply('Extracted');
-  }
-
-  @Command('mergeAudio')
-  async mergeAudioWithVideo(@Ctx() ctx: IBotContext) {
-    const parsedArgs = this.botService.parseCommandArgs(
-      // TODO: avoid using ts ignore
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      ctx.update.message.text,
-    );
-    await this.botService.mergeAudioToVideo(
+    await this.botService.mergeAudioWithVideo(
       resolve(...parsedArgs.video.split('/')),
       resolve(...parsedArgs.audio.split('/')),
       resolve(...parsedArgs.outputVideo.split('/')),
     );
-  }
-  // TODO: refactor
 
+    await ctx.reply('Finished🔥');
+  }
+  // TODO: refactor and add downloading video and audio from youtube
   // @On('text')
   // async message(@Ctx() ctx: IBotContext, @Message() msg: IMessage) {
   //   // console.time('downloading from youtube');

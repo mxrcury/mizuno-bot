@@ -23,12 +23,12 @@ export class BotService {
     await this.fileService.extractAudioFromVideo(video, audio);
   }
 
-  async mergeAudioToVideo(
+  async mergeAudioWithVideo(
     originVideo: string,
     originAudio: string,
     outputVideo: string,
   ) {
-    await this.fileService.exchangeAudio({
+    await this.fileService.mergeAudioWithVideo({
       originVideo,
       originAudio,
       outputVideo,
