@@ -7,16 +7,9 @@ const ffmpeg = require('fluent-ffmpeg');
 
 @Injectable()
 export class FilesService {
-  // constructor(
-  // @InjectFirebaseAdmin() private readonly firebase: FirebaseAdmin,
-  // ) {}
-  // async saveFile(filename: string, file: any) {
-  //   const storage = this.firebase.storage.bucket();
-  //   await storage.file(filename).save(file, { gzip: true });
-  // }
   async extractAudioFromVideo(video: string, audio: string) {
     return await new Promise((resolve) => {
-      const response = spawn('sudo ffmpeg', `-i ${video} ${audio}`.split(' '), {
+      const response = spawn('ffmpeg', `-i ${video} ${audio}`.split(' '), {
         shell: true,
       });
 

@@ -16,6 +16,15 @@ export class BotUpdate {
     );
   }
 
+  // @Command('echo')
+  // async echo(@Ctx() ctx: IBotContext) {
+  //   // const text = ctx.update.message.text.split(' ')[1];
+  //   // const res = spawn('echo', [`"${text}"`]);
+  //   // res.stdout.on('data', async (res) => {
+  //   //   await ctx.reply(res);
+  //   // });
+  // }
+
   @Command('extractAudio')
   async extractAudio(@Ctx() ctx: IBotContext) {
     const parsedArgs = this.botService.parseCommandArgs(
@@ -27,7 +36,7 @@ export class BotUpdate {
       resolve(...parsedArgs.audio.split('/')),
     );
     await this.botService.mergeAudioWithVideo(
-      resolve(...parsedArgs.video.split('/')),
+      resolve(...parsedArgs.videoSub.split('/')),
       resolve(...parsedArgs.audio.split('/')),
       resolve(...parsedArgs.outputVideo.split('/')),
     );

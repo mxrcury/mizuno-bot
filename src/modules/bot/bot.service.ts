@@ -40,11 +40,12 @@ export class BotService {
 
     const video = parsed[1];
     const audio = parsed[2];
-
+    const videoSub = parsed[3];
     return {
       video,
       audio,
-      ...(parsed[3] && { outputVideo: parsed[3] }),
+      videoSub,
+      ...(parsed[4] && { outputVideo: parsed[4] }),
     };
   }
 }
