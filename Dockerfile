@@ -17,4 +17,7 @@ COPY . .
 
 COPY /node_modules /node_modules
 
+COPY /dist /dist
+
 CMD ["yarn", "start:dev"]
+

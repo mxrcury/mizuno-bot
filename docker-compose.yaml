@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/app
+      - ./assets:/assets
     ports:
       - 4000:4000
       - 9230:9230

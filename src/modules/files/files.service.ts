@@ -12,10 +12,8 @@ export class FilesService {
       const response = spawn('ffmpeg', `-i ${video} ${audio}`.split(' '), {
         shell: true,
       });
-
       response.on('close', resolve);
       response.on('exit', resolve);
-
       response.stdout.on('error', (e) => {
         throw new InternalServerErrorException(
           'Something went wrong. ' + e.message,
