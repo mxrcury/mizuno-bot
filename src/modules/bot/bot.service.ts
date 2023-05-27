@@ -10,8 +10,6 @@ export class BotService {
   ) {}
 
   async handleLink(link: string) {
-    // const isLinkValid = this.validateLink(link);
-    // if (!isLinkValid) throw new Error('Entered link is not valid');
     return this.youtubeService.getAudio(link);
   }
   private validateLink(link: string) {

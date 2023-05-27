@@ -1,6 +1,5 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-// import { firebaseOptions } from 'src/config/firebase.config';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { botOptions } from 'src/config/bot.config';
 import { FilesModule } from '../files/files.module';
@@ -16,7 +15,6 @@ import { BotUpdate } from './bot.update';
     HttpModule,
     FilesModule,
     PrismaModule,
-    // FirebaseModule.forRoot(firebaseOptions),
   ],
   providers: [BotUpdate, BotService],
 })
