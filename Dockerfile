@@ -19,5 +19,7 @@ COPY /node_modules /node_modules
 
 COPY /dist /dist
 
-CMD ["yarn", "start:dev"]
+COPY ./prisma/schema.prisma ./schema.prisma
+RUN npx prisma generate
 
+CMD [ "yarn", "start:dev" ]

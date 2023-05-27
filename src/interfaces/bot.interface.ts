@@ -5,7 +5,7 @@ export interface ISession {
 }
 export interface IBotContext extends Omit<Context, 'update'> {
   session: ISession;
-  update: { message: { text: string } };
+  update: { message: { text: string; video?: { [key: string]: any } } };
 }
 
 export interface IBotOptions {

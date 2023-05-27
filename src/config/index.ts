@@ -1,24 +1,30 @@
 import { Logger } from '@nestjs/common';
 import { config } from 'dotenv';
 import { expand } from 'dotenv-expand';
-import { z } from "zod";
+import { z } from 'zod';
 
-const logger = new Logger()
+const logger = new Logger();
 
-const { parsed } = config({ path: '.env' })
+const { parsed } = config({ path: '.env' });
 
 const envSchema = z.object({
-    BOT_TOKEN: z.string()
-})
+  // Telegram
+  BOT_TOKEN: z.string(),
 
-type EnvSchema = z.infer<typeof envSchema>
+  // Prisma
+  // DATABASE_URL: z.string(),
 
-const parsedEnv = envSchema.safeParse( expand({ parsed }).parsed )
+  // Firebase
+  FIREBASE_PROJECT_ID: z.string(),
+});
 
-if(parsedEnv.success === false) {
-    logger.error('Something went wrong during parsing environments')
-    process.exit(1)
+type EnvSchema = z.infer<typeof envSchema>;
+
+const parsedEnv = envSchema.safeParse(expand({ parsed }).parsed);
+
+if (parsedEnv.success === false) {
+  logger.error('Something went wrong during parsing environments');
+  process.exit(1);
 }
 
-
-export const env = parsedEnv.data as EnvSchema
+export const env = parsedEnv.data as EnvSchema;

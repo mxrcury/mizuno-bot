@@ -20,6 +20,25 @@ export class FilesService {
         );
       });
     });
+    // let output;
+    // const chunks = [];
+    // ffmpeg(video)
+    //   .noVideo()
+    //   .format('wav')
+    //   .on('end', function () {
+    //     output = Buffer.concat(chunks);
+    //   })
+    //   .on('error', function (err) {
+    //     console.log('Error extracting audio:', err);
+    //   })
+    //   .pipe()
+    //   .on('data', function (chunk) {
+    //     // `chunk` represents the audio buffer
+    //     console.log('Received audio chunk', chunk);
+    //     chunks.push(chunk);
+    //     // Process the audio buffer here as per your requirements
+    //   });
+    // return output;
   }
 
   async mergeAudioWithVideo({

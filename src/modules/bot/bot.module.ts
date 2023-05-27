@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { botOptions } from 'src/config/bot.config';
 import { FilesModule } from '../files/files.module';
+import { PrismaModule } from '../prisma/prisma.module';
 import { YoutubeModule } from '../youtube/youtube.module';
 import { BotService } from './bot.service';
 import { BotUpdate } from './bot.update';
@@ -14,6 +15,7 @@ import { BotUpdate } from './bot.update';
     YoutubeModule,
     HttpModule,
     FilesModule,
+    PrismaModule,
     // FirebaseModule.forRoot(firebaseOptions),
   ],
   providers: [BotUpdate, BotService],

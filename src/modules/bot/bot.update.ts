@@ -1,32 +1,53 @@
 import { Command, Ctx, Start, Update } from 'nestjs-telegraf';
 
+import { HttpService } from '@nestjs/axios';
 import { resolve } from 'path';
-
 import { IBotContext } from '../../interfaces/bot.interface';
 import { BotService } from './bot.service';
 
 @Update()
 export class BotUpdate {
-  constructor(private readonly botService: BotService) {}
+  constructor(
+    private readonly botService: BotService, // private readonly prismaService: PrismaService,
+    private readonly httpService: HttpService,
+  ) {}
 
   @Start()
   async start(@Ctx() ctx: IBotContext) {
+    // const doesUserExist = await this.prismaService.
+
     await ctx.reply(
       "Hello! I'm a Mizuno.\nTelegram bot for downloading youtube videos and music",
     );
   }
 
-  // @Command('echo')
-  // async echo(@Ctx() ctx: IBotContext) {
-  //   // const text = ctx.update.message.text.split(' ')[1];
-  //   // const res = spawn('echo', [`"${text}"`]);
-  //   // res.stdout.on('data', async (res) => {
-  //   //   await ctx.reply(res);
-  //   // });
+  // @On('text')
+  // async text(@Ctx() ctx: IBotContext) {
+  //   await ctx.reply(
+  //     'Your entered text -> ' + JSON.stringify(ctx.update.message.text),
+  //   );
+  // }
+
+  // @On('message')
+  // async saveVideo(@Ctx() ctx: IBotContext) {
+  //   const videoId = ctx.update.message.video.file_id;
+  //   const video = await firstValueFrom(
+  //     this.httpService.get(
+  //       `https://api.telegram.org/bot${env.BOT_TOKEN}/getFile?file_id=${videoId}`,
+  //     ),
+  //   );
+  //   console.log(video);
+
+  //   // const extractedAudio = await this.botService.extractAudioFromVideo(
+  //   //   videoId,
+  //   //   resolve('assets', 'extracted', 'audio.mp3'),
+  //   // );
+  //   // console.log(video);
   // }
 
   @Command('extractAudio')
   async extractAudio(@Ctx() ctx: IBotContext) {
+    ctx.reply('Welcome! Please enter your name:');
     const parsedArgs = this.botService.parseCommandArgs(
       ctx.update.message.text,
     );
