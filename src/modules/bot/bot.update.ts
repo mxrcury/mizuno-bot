@@ -21,30 +21,6 @@ export class BotUpdate {
     );
   }
 
-  // @On('text')
-  // async text(@Ctx() ctx: IBotContext) {
-  //   await ctx.reply(
-  //     'Your entered text -> ' + JSON.stringify(ctx.update.message.text),
-  //   );
-  // }
-
-  // @On('message')
-  // async saveVideo(@Ctx() ctx: IBotContext) {
-  //   const videoId = ctx.update.message.video.file_id;
-  //   const video = await firstValueFrom(
-  //     this.httpService.get(
-  //       `https://api.telegram.org/bot${env.BOT_TOKEN}/getFile?file_id=${videoId}`,
-  //     ),
-  //   );
-  //   console.log(video);
-
-  //   // const extractedAudio = await this.botService.extractAudioFromVideo(
-  //   //   videoId,
-  //   //   resolve('assets', 'extracted', 'audio.mp3'),
-  //   // );
-  //   // console.log(video);
-  // }
-
   @Command('extractAudio')
   async extractAudio(@Ctx() ctx: IBotContext) {
     ctx.reply('Welcome! Please enter your name:');
