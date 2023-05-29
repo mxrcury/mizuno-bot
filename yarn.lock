@@ -5787,10 +5787,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-youtube-dl-exec@^2.4.1:
-  version "2.4.2"
-  resolved "https://registry.npmjs.org/youtube-dl-exec/-/youtube-dl-exec-2.4.2.tgz"
-  integrity sha512-0anzwaVtljlTxcHUMlyYkef9jTM52cehvIexORVs4gWgLJ5S4i0PlzGUpn2f/eo1/WWB7rNPztz/BXt0bBoC1A==
+youtube-dl-exec@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/youtube-dl-exec/-/youtube-dl-exec-2.4.3.tgz#1181a5d45ae7128de040622735af5da6d090d35b"
+  integrity sha512-4/ikMG2rP9Vukggd8Z7nutEWeb8YN28//yK6X4TDifntuQN6p2sZnGBr1iFgFRoZH6DQspOc7xg+TsZ+GhcwRQ==
   dependencies:
     bin-version-check "~5.0.0"
     dargs "~7.0.0"
