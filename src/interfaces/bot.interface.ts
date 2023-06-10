@@ -10,6 +10,7 @@ export interface IBotContext extends Omit<Context, 'update'> {
 
 export interface IBotOptions {
   token: string;
+  middlewares: any[];
 }
 
 export interface IMessage {

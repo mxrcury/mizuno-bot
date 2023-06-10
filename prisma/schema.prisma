@@ -11,8 +11,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
   id String @id @default(cuid())
 
   username String
+
+  configuration Configuration?
+
+  @@map("users")
+}
+
+model Configuration {
+  id String @id @default(cuid())
+
+  currentEpisode  Int @map("current_episode")
+  currentName String @map("current_name")
+
+  user User @relation(references:[id], fields:[userId])
+  userId String @unique @map("user_id")
+
+  @@map("configuration")
 }

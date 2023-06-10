@@ -1,12 +1,72 @@
+import * as fs from 'fs/promises';
+import * as path from 'path';
+
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { spawn } from 'child_process';
 import { IExchangeAudio } from 'src/interfaces/files.interface';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const ffmpeg = require('fluent-ffmpeg');
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class FilesService {
+  constructor(private readonly prismaService: PrismaService) {}
+
+  async moveLastDownloadedFiles(userId: string) {
+    const downloadedPath = path.resolve('assets', 'downloaded');
+
+    const files = await fs.readdir(downloadedPath);
+
+    (
+      await Promise.all(
+        files.map(async function (file) {
+          return {
+            name: file,
+            time: (
+              await fs.stat(path.resolve(downloadedPath, file))
+            ).mtime.getTime(),
+          };
+        }),
+      )
+    )
+      .sort(function (a, b) {
+        return a.time - b.time;
+      })
+      .map(async (f, i) => {
+        const file = await fs.readFile(path.resolve(downloadedPath, f.name));
+
+        this.updateFilesNaming(userId, file, i + 1);
+      });
+  }
+
+  private async updateFilesNaming(
+    userId: string,
+    file: Buffer,
+    fileOrder: number,
+  ) {
+    const config = await this.prismaService.configuration.findFirst({
+      where: { userId },
+    });
+
+    if (fileOrder === 1) {
+      const newFilePath = path.resolve(
+        'assets',
+        config.currentName + '-' + config.currentEpisode + '-' + 'dub' + '.mp4',
+      );
+      console.log(newFilePath, file);
+
+      await fs.writeFile(newFilePath, file);
+    }
+    if (fileOrder === 2) {
+      const newFilePath = path.resolve(
+        'assets',
+        config.currentName + '-' + config.currentEpisode + '-' + 'sub' + '.mp4',
+      );
+
+      console.log(newFilePath, file);
+
+      await fs.writeFile(newFilePath, file);
+    }
+  }
+
   async extractAudioFromVideo(video: string, audio: string) {
     return await new Promise((resolve) => {
       const response = spawn('ffmpeg', `-i ${video} ${audio}`.split(' '), {
@@ -20,25 +80,6 @@ export class FilesService {
         );
       });
     });
-    // let output;
-    // const chunks = [];
-    // ffmpeg(video)
-    //   .noVideo()
-    //   .format('wav')
-    //   .on('end', function () {
-    //     output = Buffer.concat(chunks);
-    //   })
-    //   .on('error', function (err) {
-    //     console.log('Error extracting audio:', err);
-    //   })
-    //   .pipe()
-    //   .on('data', function (chunk) {
-    //     // `chunk` represents the audio buffer
-    //     console.log('Received audio chunk', chunk);
-    //     chunks.push(chunk);
-    //     // Process the audio buffer here as per your requirements
-    //   });
-    // return output;
   }
 
   async mergeAudioWithVideo({

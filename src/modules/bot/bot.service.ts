@@ -1,20 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { Markup } from 'telegraf';
+import { ReplyKeyboardMarkup } from 'telegraf/typings/core/types/typegram';
 import { FilesService } from '../files/files.service';
-import { YoutubeService } from '../youtube/youtube.service';
 
 @Injectable()
 export class BotService {
-  constructor(
-    private readonly youtubeService: YoutubeService,
-    private readonly fileService: FilesService,
-  ) {}
+  keyboard: Markup.Markup<ReplyKeyboardMarkup> = Markup.keyboard([
+    ['Make magic✨', 'Configure⚙️'],
+  ]).resize(true);
 
-  async handleLink(link: string) {
-    return this.youtubeService.getAudio(link);
-  }
-  private validateLink(link: string) {
-    const regexp = new RegExp(/w/);
-    return regexp.test(link);
+  constructor(private readonly fileService: FilesService) {}
+
+  async moveLastDownloadedFiles(userId: string) {
+    this.fileService.moveLastDownloadedFiles(userId);
   }
 
   async extractAudioFromVideo(video: string, audio: string) {
@@ -31,19 +29,5 @@ export class BotService {
       originAudio,
       outputVideo,
     });
-  }
-
-  parseCommandArgs(args: string) {
-    const parsed = args.split(' ');
-
-    const video = parsed[1];
-    const audio = parsed[2];
-    const videoSub = parsed[3];
-    return {
-      video,
-      audio,
-      videoSub,
-      ...(parsed[4] && { outputVideo: parsed[4] }),
-    };
   }
 }

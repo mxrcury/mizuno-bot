@@ -4,18 +4,19 @@ import { TelegrafModule } from 'nestjs-telegraf';
 import { botOptions } from 'src/config/bot.config';
 import { FilesModule } from '../files/files.module';
 import { PrismaModule } from '../prisma/prisma.module';
-import { YoutubeModule } from '../youtube/youtube.module';
+import { UserModule } from '../user/user.module';
 import { BotService } from './bot.service';
 import { BotUpdate } from './bot.update';
+import { ConfigurationWizard } from './bot.wizard';
 
 @Module({
   imports: [
     TelegrafModule.forRoot(botOptions),
-    YoutubeModule,
     HttpModule,
     FilesModule,
     PrismaModule,
+    UserModule,
   ],
-  providers: [BotUpdate, BotService],
+  providers: [BotUpdate, BotService, ConfigurationWizard],
 })
 export class BotModule {}
