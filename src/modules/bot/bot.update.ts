@@ -1,6 +1,8 @@
-import { Command, Ctx, Hears, Start, Update } from 'nestjs-telegraf';
+import { resolve } from 'path';
 
+import { Command, Ctx, Hears, Start, Update } from 'nestjs-telegraf';
 import { Scenes } from 'telegraf';
+
 import { IBotContext } from '../../interfaces/bot.interface';
 import { UserService } from '../user/user.service';
 import { BotConstants } from './bot.constants';
@@ -30,8 +32,6 @@ export class BotUpdate {
 
   @Command('stop')
   async stopConfiguration(@Ctx() ctx: Scenes.SceneContext) {
-    console.log('current ->', ctx.scene.current);
-
     ctx.scene.leave();
   }
 
@@ -43,17 +43,37 @@ export class BotUpdate {
 
     await this.botService.moveLastDownloadedFiles(user.id);
 
-    // for update ---
-    // await this.botService.extractAudioFromVideo(
-    //   resolve('assets', parsedArgs.video),
-    //   resolve('assets', 'audio', parsedArgs.audio),
-    // );
-    // await this.botService.mergeAudioWithVideo(
-    //   resolve('assets', parsedArgs.videoSub),
-    //   resolve('assets', 'audio', parsedArgs.audio),
-    //   resolve('assets', 'merged', parsedArgs.outputVideo),
-    // );
+    const basicFileName = `${user.configuration.currentName}-${user.configuration.currentEpisode}`;
 
-    await ctx.reply('Finished🔥');
+    console.log(basicFileName);
+
+    await this.botService.extractAudioFromVideo(
+      resolve('assets', `${basicFileName}-dub.mp4`),
+      resolve('assets', 'extracted', `${basicFileName}-dub.mp3`),
+    );
+
+    /*
+    await this.botService.mergeAudioWithVideo(
+      resolve('assets', `${basicFileName}-sub.mp4`),
+      resolve('assets', 'audio', `${basicFileName}-dub.mp3`),
+      resolve('assets', 'merged', `${basicFileName}.mp4`),
+    );
+
+    */
+
+    const repliedMsg = await ctx.reply('Finished🔥');
+
+    /*
+    await ctx.replyWithVideo(
+      resolve('assets', 'merged', `${basicFileName}.mp4`),
+    );
+    */
+
+    setTimeout(
+      async () => await ctx.deleteMessage(repliedMsg.message_id),
+      5000,
+    );
+
+    await this.userService.updateEpisode(user.id);
   }
 }

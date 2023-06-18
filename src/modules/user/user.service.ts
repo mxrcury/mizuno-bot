@@ -21,4 +21,11 @@ export class UserService {
       return await this.prismaService.user.create({ data: { username } });
     }
   }
+
+  async updateEpisode(userId: string) {
+    await this.prismaService.configuration.update({
+      where: { userId },
+      data: { currentEpisode: { increment: 1 } },
+    });
+  }
 }
