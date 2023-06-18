@@ -45,34 +45,24 @@ export class BotUpdate {
 
     const basicFileName = `${user.configuration.currentName}-${user.configuration.currentEpisode}`;
 
-    console.log(basicFileName);
+    await new Promise((r) => setTimeout(r, 5000));
+
+    const repliedMsg = await ctx.reply('Processing...');
 
     await this.botService.extractAudioFromVideo(
       resolve('assets', `${basicFileName}-dub.mp4`),
-      resolve('assets', 'extracted', `${basicFileName}-dub.mp3`),
+      resolve('assets', 'extracted', `${basicFileName}.mp3`),
     );
 
-    /*
     await this.botService.mergeAudioWithVideo(
       resolve('assets', `${basicFileName}-sub.mp4`),
-      resolve('assets', 'audio', `${basicFileName}-dub.mp3`),
+      resolve('assets', 'extracted', `${basicFileName}.mp3`),
       resolve('assets', 'merged', `${basicFileName}.mp4`),
     );
 
-    */
+    await ctx.deleteMessage(repliedMsg.message_id);
 
-    const repliedMsg = await ctx.reply('Finished🔥');
-
-    /*
-    await ctx.replyWithVideo(
-      resolve('assets', 'merged', `${basicFileName}.mp4`),
-    );
-    */
-
-    setTimeout(
-      async () => await ctx.deleteMessage(repliedMsg.message_id),
-      5000,
-    );
+    await ctx.reply('Finished🔥');
 
     await this.userService.updateEpisode(user.id);
   }
