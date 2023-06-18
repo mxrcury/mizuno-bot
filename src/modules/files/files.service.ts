@@ -59,6 +59,7 @@ export class FilesService {
   }
 
   async extractAudioFromVideo(video: string, audio: string) {
+    console.log(video, audio);
     return await new Promise((resolve) => {
       const response = spawn('ffmpeg', `-i ${video} ${audio}`.split(' '), {
         shell: true,
